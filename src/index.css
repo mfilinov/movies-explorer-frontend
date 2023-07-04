@@ -1,0 +1,37 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+.root {
+  background: #ffffff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-opacity:hover {
+  opacity: .6;
+  transition: opacity .7s;
+}
+
+.button-opacity:hover {
+  opacity: .6;
+  transition: opacity .7s;
+}
+
+.page__main {
+  width: 100%;
+}
+
+.page__main_type_movies {
+  flex: 1;
+  padding: 0 70px 0;
+  box-sizing: border-box;
+}

@@ -1,0 +1,31 @@
+.authentication__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 413px;
+}
+
+.authentication__form-basement{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.authentication__form-caption {
+  margin: 0;
+  color: #A0A0A0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.authentication__form-link-caption {
+  color: #3456F3;
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  padding-left: 6px;
+}

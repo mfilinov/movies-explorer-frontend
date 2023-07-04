@@ -1,0 +1,30 @@
+.nav-home__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-home__links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-home__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.nav-home__link-login {
+  border-radius: 3px;
+  width: 76px;
+  height: 32px;
+  background-color: #2BE080;
+  color: #000000;
+}
