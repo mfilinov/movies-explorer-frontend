@@ -54,3 +54,123 @@
   line-height: 16px;
   text-decoration: none;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .header__nav {
+    padding: 0;
+  }
+
+  .header__nav-list {
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 159px;
+    gap: 28px;
+    box-sizing: border-box;
+  }
+
+  .header__nav-link-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+
+  .header__nav-link-mid-container {
+    padding: 0;
+    flex-grow: 0;
+  }
+
+  .header__nav-link_active {
+    border-bottom: #000000 solid 2px;
+    padding-bottom: 4px;
+  }
+
+  .header__nav-account {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    max-width: 100px;
+    background-color: #FFFFFF;
+  }
+
+  .header__nav-account-link {
+    width: 100%;
+    padding-top: 7px;
+    margin-bottom: 89px;
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    text-decoration: none;
+    height: 32px;
+    border-radius: 20px;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__nav {
+    padding: 0;
+  }
+
+  .header__nav-list {
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 144px;
+    gap: 24px;
+    box-sizing: border-box;
+  }
+
+  .header__nav-link-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+
+  .header__nav-link-mid-container {
+    padding: 0;
+    flex-grow: 0;
+  }
+
+  .header__nav-link_active {
+    border-bottom: #000000 solid 2px;
+    padding-bottom: 7px;
+  }
+
+  .header__nav-account {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    max-width: 100px;
+    background-color: #FFFFFF;
+  }
+
+  .header__nav-account-link {
+    width: 100%;
+    padding-top: 7px;
+    margin-bottom: 33px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    height: 32px;
+    border-radius: 20px;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+  }
+}

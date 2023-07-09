@@ -1,12 +1,18 @@
 import NavAnon from "./NavAnon/NavAnon";
 import {useLocation} from "react-router-dom";
 import NavUser from "./NavUser/NavUser";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import "./Navigation.css"
 
 function Navigation() {
   const location = useLocation();
   const user = useContext(CurrentUserContext);
+  const [burgerActive, setBurgerActive] = useState(false);
+
+  function handleBurger() {
+    setBurgerActive((prev) => !prev)
+  }
 
   function getTheme() {
     if (location.pathname === '/') {
@@ -21,8 +27,9 @@ function Navigation() {
         ?
         <NavAnon/>
         :
-        <NavUser theme={getTheme()}/>
+        <NavUser theme={getTheme()} onClose={handleBurger} active={burgerActive}/>
       }
+      <button type="button" className="header__burger-btn button-hover" onClick={handleBurger}/>
     </>
   )
 }
