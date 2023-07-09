@@ -63,7 +63,42 @@
   line-height: 11px;
 }
 
+.movies-card__button-delete {
+  border: none;
+  margin: 18px 0;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  background: url("../../../images/button-delete.svg") no-repeat center/ 100px 29px;;
+}
+
 .movies-card__save-button_saved {
   background-color: #FF3055;
   color: #FFFFFF;
+}
+
+@media screen and (max-width: 767px) {
+  .movies-card__title-container {
+    padding: 14px;
+  }
+
+  .movies-card__title {
+    font-size: 12px;
+  }
+
+  .movies-card__duration {
+    font-size: 10px;
+  }
+
+  .movies-card__save-button {
+    margin: 14px 0;
+  }
+
+  .movies-card__button-delete {
+    margin: 14px 0;
+  }
+
+  .card__image {
+    height: 168px;
+  }
 }

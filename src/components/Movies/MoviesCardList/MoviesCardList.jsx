@@ -1,7 +1,8 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css"
 
-function MoviesCardList({movieCardList, isMoreButtonPresent}) {
+function MoviesCardList({movieCardList, isMoreButtonPresent, onMore}) {
+
   return (
     <section className="movies" aria-label="галерея">
       <ul className="movies__list list">
@@ -12,7 +13,7 @@ function MoviesCardList({movieCardList, isMoreButtonPresent}) {
         )}
       </ul>
       <div className="movies__more-button-container">
-        {isMoreButtonPresent && (<button type="button" className="movies__more-button">Еще</button>)}
+        {isMoreButtonPresent && (<button type="button" onClick={onMore} className="movies__more-button button-hover">Еще</button>)}
       </div>
     </section>
   )

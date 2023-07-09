@@ -45,12 +45,12 @@ function AuthenticationForm({type, handleSubmit}) {
             login:
               <>
                 Ещё не зарегистрированы?
-                <Link to="/signup" className="authentication__form-link-caption link-opacity">Регистрация</Link>
+                <Link to="/signup" className="authentication__form-link-caption link-hover">Регистрация</Link>
               </>,
             register:
               <>
                 Уже зарегистрированы?
-                <Link to="/signin" className="authentication__form-link-caption link-opacity">Войти</Link>
+                <Link to="/signin" className="authentication__form-link-caption link-hover">Войти</Link>
               </>,
           }[type]}
         </p>

@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  min-width: 320px;
   height: 74px;
   display: flex;
   justify-content: center;
@@ -21,4 +20,16 @@
   max-width: 1140px;
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .header__container {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__container {
+    padding: 0 14px;
+  }
 }

@@ -19,3 +19,12 @@
   color: #C2C2C2;
   font-weight: 500;
 }
+
+@media screen and (max-width: 767px) {
+  .button-submit_size_l {
+    padding: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

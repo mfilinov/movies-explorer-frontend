@@ -3,17 +3,17 @@ import "./Footer.css"
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer footer_size_l">
       <h2 className="footer__title">Учебный проект Яндекс.Практикум х&nbsp;BeatFilm.</h2>
       <div className="footer__basement">
-        <p className="footer__copyright">&copy;&nbsp;2023</p>
+        <p className="footer__copyright">&copy; 2023</p>
         <nav>
           <ul className="footer__links list">
-            <li>
-              <Link to="https://practicum.yandex.ru" className="footer__link link-opacity">Яндекс.Практикум</Link>
+            <li className="footer__links-element">
+              <Link to="https://practicum.yandex.ru" className="footer__link link-hover">Яндекс.Практикум</Link>
             </li>
-            <li>
-              <Link to="https://github.com/mfilinov" className="footer__link link-opacity">Github</Link>
+            <li className="footer__links-element">
+              <Link to="https://github.com/mfilinov" className="footer__link link-hover">Github</Link>
             </li>
           </ul>
         </nav>

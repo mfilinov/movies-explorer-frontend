@@ -1,6 +1,19 @@
 import "./MoviesCard.css"
+import {useLocation} from "react-router-dom";
 
 function MoviesCard({movieCard}) {
+  const location = useLocation();
+
+  function getButtonType() {
+    if (location.pathname === '/saved-movies') {
+      return "delete"
+    }
+    if (movieCard.saved) {
+      return "saved"
+    }
+    return "generic"
+  }
+
   return (
     <li className="movies-card">
       <article className="movies-card__container">
@@ -10,9 +23,11 @@ function MoviesCard({movieCard}) {
         </div>
         <img src={movieCard.image} alt={movieCard.nameRU} className="card__image"/>
         <div className="movies-card__basement">{
-          movieCard.saved
-            ? <button type="button" className="movies-card__save-button movies-card__save-button_saved">✓</button>
-            : <button type="button" className="movies-card__save-button">Сохранить</button>
+          {
+            delete: <button type="button" className="movies-card__button-delete button-hover"/>,
+            saved: <button type="button" className="movies-card__save-button movies-card__save-button_saved">✓</button>,
+            generic: <button type="button" className="movies-card__save-button">Сохранить</button>
+          }[getButtonType()]
         }
         </div>
       </article>

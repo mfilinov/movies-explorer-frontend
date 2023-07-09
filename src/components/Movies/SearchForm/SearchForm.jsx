@@ -8,9 +8,7 @@ function SearchForm() {
           <div className="search__form-input-container">
             <div className="search__icon"/>
             <input type="text" className="search-form__input" placeholder="Фильм" name="searchInput"/>
-            <div>
               <button className="search-form__button-submit"/>
-            </div>
           </div>
           <div className="search__checkbox-container">
             <label className="search__checkbox-label">

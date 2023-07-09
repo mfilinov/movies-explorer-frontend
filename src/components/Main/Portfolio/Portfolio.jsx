@@ -4,12 +4,12 @@ import {Link} from "react-router-dom";
 
 function Portfolio() {
   return (
-    <section className="portfolio">
+    <section className="portfolio portfolio_size_l">
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list list">
         {portfolioData.map((item, index) => {
           return <li key={index} className="portfolio__list-element">
-            <Link className="portfolio__link link-opacity" to={item.url} target="_blank">
+            <Link className="portfolio__link link-hover" to={item.url} target="_blank">
               {item.title}
               <span className="portfolio__icon">↗</span>
             </Link>

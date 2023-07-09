@@ -16,14 +16,16 @@
   margin: 0;
 }
 
-.link-opacity:hover {
-  opacity: .6;
+.link-hover:hover {
+  opacity: .7;
   transition: opacity .7s;
+  cursor: pointer;
 }
 
-.button-opacity:hover {
-  opacity: .6;
+.button-hover:hover {
+  opacity: .8;
   transition: opacity .7s;
+  cursor: pointer;
 }
 
 .page__main {
@@ -34,4 +36,16 @@
   flex: 1;
   padding: 0 70px 0;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .page__main_type_movies {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page__main_type_movies {
+    padding: 0 10px;
+  }
 }

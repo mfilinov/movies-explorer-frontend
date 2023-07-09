@@ -28,3 +28,19 @@
   background-color: #2BE080;
   color: #000000;
 }
+
+@media screen and (max-width: 767px) {
+  .nav-home__links {
+    gap: 14px;
+  }
+
+  .nav-home__link {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .nav-home__link-login {
+    width: 54px;
+    height: 26px;
+  }
+}

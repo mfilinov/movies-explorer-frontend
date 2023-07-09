@@ -98,5 +98,33 @@ export const movieCardList = [
     duration: 27,
     image: './images/pic__COLOR_pic-3.png',
     saved: false
-  }
+  },
+  {
+    id: 13,
+    nameRu: 'В погоне за Бенкси',
+    duration: 27,
+    image: './images/pic__COLOR_pic.png',
+    saved: true
+  },
+  {
+    id: 14,
+    nameRu: 'В погоне за Бенкси',
+    duration: 27,
+    image: './images/pic__COLOR_pic-9.png',
+    saved: true
+  },
+  {
+    id: 15,
+    nameRu: 'В погоне за Бенкси',
+    duration: 27,
+    image: './images/pic__COLOR_pic-2.png',
+    saved: false
+  },
+  {
+    id: 16,
+    nameRu: 'В погоне за Бенкси',
+    duration: 27,
+    image: './images/pic__COLOR_pic-11.png',
+    saved: false
+  },
 ]

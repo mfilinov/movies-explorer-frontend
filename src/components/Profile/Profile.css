@@ -63,6 +63,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
+  gap: 17px
 }
 
 .profile__button-edit {
@@ -75,7 +76,6 @@
   color: #000;
   text-align: center;
   background-color: #FFFFFF;
-  cursor: pointer;
 }
 
 .profile__button_disabled {
@@ -84,11 +84,11 @@
   font-weight: 500;
 }
 
-.profile__logout-link {
-  padding: 17px 0 0;
-  margin: 0;
-  text-decoration: none;
+.profile__button-logout {
+  padding: 0;
+  border: none;
   color: #FF004D;
+  background-color: #FFFFFF;
   font-size: 13px;
   font-weight: 500;
 }
@@ -101,4 +101,46 @@
   text-align: center;
   font-size: 11px;
   line-height: 14px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .profile__title {
+    padding: 236px 0 0;
+  }
+
+  .profile__form {
+    padding-top: 96px;
+  }
+
+  .profile__response-error {
+    padding-top: 162px;
+  }
+
+}
+@media screen and (max-width: 767px) {
+  .profile__title {
+    padding: 70px 0 0;
+  }
+
+  .profile__form {
+    padding-top: 80px;
+  }
+
+  .page__main_type_profile {
+    max-width: 260px;
+  }
+
+  .profile__button-container {
+   padding-top: 179px;
+  }
+
+  .profile__button-edit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .profile__button-logout {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

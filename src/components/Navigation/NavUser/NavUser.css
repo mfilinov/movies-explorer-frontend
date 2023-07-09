@@ -3,22 +3,32 @@
   padding-left: 44px;
   width: 100%;
 }
-.header__nav-list{
+
+.header__nav-list {
   display: flex;
   align-items: center;
   width: 100%;
 }
+
 .header__nav-link-mid-container {
   flex-grow: 1;
   padding-left: 17px;
 }
+
 .header__nav-link {
   margin: 0;
   padding: 0;
-  color: #000000;
   font-size: 13px;
   line-height: 18px;
   text-decoration: none;
+}
+
+.header__nav-link_theme_light {
+  color: #000000;
+}
+
+.header__nav-link_theme_dark {
+  color: #FFFFFF;
 }
 
 .header__nav-link_active {

@@ -14,3 +14,16 @@
 .landing__section-title_height_s {
   padding-top: 100px;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .landing__section-title {
+    padding: 90px 0 23px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .landing__section-title {
+    padding: 70px 0 28px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

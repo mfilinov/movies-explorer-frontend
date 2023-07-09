@@ -1,16 +1,27 @@
-import NavHome from "./NavHome/NavHome";
+import NavAnon from "./NavAnon/NavAnon";
 import {useLocation} from "react-router-dom";
-import NavMovies from "./NavMovies/NavMovies";
+import NavUser from "./NavUser/NavUser";
+import {useContext} from "react";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 function Navigation() {
   const location = useLocation();
+  const user = useContext(CurrentUserContext);
+
+  function getTheme() {
+    if (location.pathname === '/') {
+      return 'dark'
+    }
+    return 'light'
+  }
+
   return (
     <>
-      {location.pathname === '/'
+      {location.pathname === '/' && !user.isLoggedIn
         ?
-        <NavHome/>
+        <NavAnon/>
         :
-        <NavMovies/>
+        <NavUser theme={getTheme()}/>
       }
     </>
   )

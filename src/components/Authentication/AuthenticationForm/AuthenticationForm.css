@@ -19,13 +19,37 @@
   text-align: center;
   font-size: 14px;
   line-height: 17px;
+  font-weight: 400;
 }
 
 .authentication__form-link-caption {
+  padding-left: 6px;
   color: #3456F3;
   text-align: center;
   font-size: 14px;
   line-height: 17px;
+  font-weight: 400;
   text-decoration: none;
-  padding-left: 6px;
+}
+
+@media screen and (max-width: 767px) {
+  .authentication__form {
+    min-height: 498px;
+  }
+
+  .authentication__form-basement {
+    gap: 15px;
+  }
+
+  .authentication__form-caption {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .authentication__form-link-caption {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

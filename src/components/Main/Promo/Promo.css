@@ -3,10 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   background-color: #073042;
+}
+
+.promo_size_l {
   width: 100%;
   min-height: 524px;
+  /*position: relative;*/
 }
 
 .promo__logo {
@@ -25,4 +28,29 @@
   line-height: 58px;
   font-weight: 400;
   letter-spacing: -0.04em;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .promo{
+    min-height: 784px;
+  }
+  .promo__logo {
+    padding-top: 105px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .promo_size_l {
+    min-height: 570px;
+  }
+
+  .promo__logo {
+    padding-top: 80px;
+    width: 248px;
+    height: 248px;
+  }
+  .promo__title {
+    font-size: 31px;
+    line-height: 39px;
+    top: -183px;
+  }
 }

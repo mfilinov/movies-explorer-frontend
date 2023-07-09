@@ -10,8 +10,8 @@ function AuthenticationFormField({title, type, name, values, errors, handleChang
         value={values[name] || ""}
         onChange={handleChange}
         required
-        minLength="2"
-        maxLength="30"
+        minLength={type === "text" ? "2" : null}
+        maxLength={type === "text" ? "30" : null}
         placeholder=""
         className="authentication__form-field-input"/>
       <span className="authentication__form-field-error">{errors[name]}</span>

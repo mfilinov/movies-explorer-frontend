@@ -32,3 +32,29 @@
   font-size: 14px;
   line-height: 17px;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .not-found__title {
+    padding: 408px 0 0;
+  }
+
+}
+@media screen and (max-width: 767px) {
+  .not-found__title {
+    padding: 329px 0 0;
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .not-found__subtitle {
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .not-found__button {
+    padding-top: 284px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

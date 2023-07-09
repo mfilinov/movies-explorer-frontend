@@ -1,18 +1,20 @@
 import "./Profile.css"
 import Header from "../Header/Header";
 import useFormAndValidation from "../../hooks/useFormAndValidation";
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-function Profile() {
+function Profile({setCurrentUser}) {
   const [isVisibleSubmit, setIsVisibleSubmit] = useState(false);
-  const [currentUser, setCurrentUser] = useState({name: 'Виталий', email: 'pochta@yandex.ru'});
   const [isServerError, setIsServerError] = useState(false);
   const {values, handleChange, errors, isValid, setValues} = useFormAndValidation();
+  const navigate = useNavigate();
+  const user = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setValues({profileName: currentUser.name, profileEmail: currentUser.email});
+    setValues({profileName: user.name, profileEmail: user.email});
   }, []);
 
   function handleSubmit(e) {
@@ -24,11 +26,17 @@ function Profile() {
     setIsVisibleSubmit(prev => !prev);
   }
 
+  function handleLogout(e) {
+    e.preventDefault();
+    setCurrentUser((prev) => ({...prev, isLoggedIn: false}));
+    navigate('/', {replace: true});
+  }
+
   return (
     <>
       <Header/>
-      <main className="profile page__main">
-        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+      <main className="profile page__main page__main_type_profile">
+        <h2 className="profile__title">Привет, {user.name}!</h2>
         <form
           name="profile-form"
           className="profile__form"
@@ -69,10 +77,12 @@ function Profile() {
               <ButtonSubmit text="Сохранить" disabled={!isValid}/>
               :
               <>
-                <button type="button" className="profile__button-edit link-opacity" onClick={toggleSubmitState}>
+                <button type="button" className="profile__button-edit button-hover" onClick={toggleSubmitState}>
                   Редактировать
                 </button>
-                <Link to="/signin" className="profile__logout-link link-opacity">Выйти из аккаунта</Link>
+                <button type="button" className="profile__button-logout button-hover" onClick={handleLogout}>
+                  Выйти из аккаунта
+                </button>
               </>
             }
           </div>
