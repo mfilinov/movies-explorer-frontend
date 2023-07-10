@@ -7,9 +7,10 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
-import {WindowModeContext} from "../../contexts/WindowModeContext";
+import {WindowModeContext, deviceWidth} from "../../contexts/WindowModeContext";
+import {debounce} from "../../utils/utils";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
@@ -19,10 +20,31 @@ function App() {
     isLoggedIn: false
   });
 
-  const [device, setDevice] = useState("deskt");
+  const [screenType, setScreenType] = useState("desktop");
+
+  useEffect(() => {
+    const debounceTime = 500;
+    const handleScreenResize = () => {
+      const currenWidth = window.innerWidth
+      if (currenWidth < deviceWidth.tablet) {
+        setScreenType('mobile');
+      } else if (currenWidth < deviceWidth.desktop) {
+        setScreenType('tablet');
+      } else if (currenWidth >= deviceWidth.desktop) {
+        setScreenType('desktop');
+      }
+    }
+
+    handleScreenResize();
+    window.addEventListener('resize', debounce(handleScreenResize, debounceTime));
+    return () => {
+      window.removeEventListener('resize', debounce(handleScreenResize, debounceTime));
+    };
+  }, [])
+
   return (
     <div className="page">
-      <WindowModeContext.Provider value={device}>
+      <WindowModeContext.Provider value={screenType}>
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route path="/" element={<Main/>}/>

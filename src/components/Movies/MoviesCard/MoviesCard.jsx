@@ -14,6 +14,8 @@ function MoviesCard({movieCard}) {
     return "generic"
   }
 
+  const buttonType = getButtonType();
+
   return (
     <li className="movies-card">
       <article className="movies-card__container">
@@ -27,7 +29,7 @@ function MoviesCard({movieCard}) {
             delete: <button type="button" className="movies-card__button-delete button-hover"/>,
             saved: <button type="button" className="movies-card__save-button movies-card__save-button_saved">✓</button>,
             generic: <button type="button" className="movies-card__save-button">Сохранить</button>
-          }[getButtonType()]
+          }[buttonType]
         }
         </div>
       </article>

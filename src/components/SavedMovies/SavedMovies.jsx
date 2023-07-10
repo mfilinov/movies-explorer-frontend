@@ -4,19 +4,21 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import {movieCardList} from "../../utils/data";
-import {useState} from "react";
+import {useContext} from "react";
+import {WindowModeContext} from "../../contexts/WindowModeContext";
+import {visibleMovieCards} from "../../utils/config";
 
 function SavedMovies() {
-  const [isMoreButtonPresent, setIsMoreButtonPresent] = useState(false);
-  const fetchSavedMoviesList = () => {
-    return movieCardList.filter((movieCard) => movieCard.saved)
-  }
+  const screenType = useContext(WindowModeContext);
+  const savedMoviesList = movieCardList.filter((movieCard) => movieCard.saved)
+
   return (
     <>
       <Header/>
       <main className="page__main page__main_type_movies">
         <SearchForm/>
-        <MoviesCardList movieCardList={fetchSavedMoviesList()} isMoreButtonPresent={isMoreButtonPresent}/>
+        <MoviesCardList movieCardList={savedMoviesList.slice(0, visibleMovieCards[screenType].initCount)}
+                        isMoreButtonPresent={false}/>
       </main>
       <Footer/>
     </>

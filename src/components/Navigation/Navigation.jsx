@@ -4,32 +4,37 @@ import NavUser from "./NavUser/NavUser";
 import {useContext, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import "./Navigation.css"
+import {WindowModeContext} from "../../contexts/WindowModeContext";
+import NavBurger from "./NavBurger/NavBurger";
 
 function Navigation() {
   const location = useLocation();
   const user = useContext(CurrentUserContext);
+  const screenType = useContext(WindowModeContext);
   const [burgerActive, setBurgerActive] = useState(false);
 
   function handleBurger() {
     setBurgerActive((prev) => !prev)
   }
 
-  function getTheme() {
-    if (location.pathname === '/') {
-      return 'dark'
+  function getType() {
+    if (location.pathname === '/' && !user.isLoggedIn) {
+      return "navAnon"
+    } else if (screenType !== "desktop") {
+      return "navUserBurger"
+    } else {
+      return "navUser"
     }
-    return 'light'
   }
 
+  const navType = getType()
+
   return (
-    <>
-      {location.pathname === '/' && !user.isLoggedIn
-        ?
-        <NavAnon/>
-        :
-        <NavUser theme={getTheme()} onClose={handleBurger} active={burgerActive}/>
-      }
-      <button type="button" className="header__burger-btn button-hover" onClick={handleBurger}/>
+    <>{{
+      navAnon: <NavAnon/>,
+      navUser: <NavUser/>,
+      navUserBurger: <NavBurger onClose={handleBurger} active={burgerActive}/>
+    }[navType]}
     </>
   )
 }
