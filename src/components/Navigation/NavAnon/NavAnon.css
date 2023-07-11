@@ -24,9 +24,19 @@
 .nav-home__link-login {
   border-radius: 3px;
   width: 76px;
-  height: 32px;
+  min-height: 32px;
   background-color: #2BE080;
   color: #000000;
+}
+
+.nav-home__button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 767px) {
@@ -41,6 +51,6 @@
 
   .nav-home__link-login {
     width: 54px;
-    height: 26px;
+    min-height: 26px;
   }
 }

@@ -12,9 +12,11 @@ function Register() {
   }
 
   return (
-    <main className="authentication authentication_size_l">
-      <Authentication>Добро пожаловать!</Authentication>
-      <AuthenticationForm type="register" handleSubmit={handleSubmit}/>
+    <main className="page__auth">
+      <section className="authentication authentication_size_l">
+        <Authentication>Добро пожаловать!</Authentication>
+        <AuthenticationForm type="register" handleSubmit={handleSubmit}/>
+      </section>
     </main>
   )
 }

@@ -7,7 +7,7 @@
 
 .nav-tab_size_l {
   width: 100%;
-  height: 66px;
+  min-height: 66px;
 }
 
 .nav-tab__links {

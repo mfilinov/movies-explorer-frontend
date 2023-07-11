@@ -62,7 +62,7 @@ export const movieCardList = [
     nameRu: 'В погоне за Бенкси',
     duration: 27,
     image: './images/pic__COLOR_pic-8.png',
-    saved: true
+    saved: false
   },
   {
     id: 8,
@@ -90,7 +90,7 @@ export const movieCardList = [
     nameRu: 'В погоне за Бенкси',
     duration: 27,
     image: './images/pic__COLOR_pic-10.png',
-    saved: true
+    saved: false
   },
   {
     id: 12,
@@ -104,14 +104,14 @@ export const movieCardList = [
     nameRu: 'В погоне за Бенкси',
     duration: 27,
     image: './images/pic__COLOR_pic.png',
-    saved: true
+    saved: false
   },
   {
     id: 14,
     nameRu: 'В погоне за Бенкси',
     duration: 27,
     image: './images/pic__COLOR_pic-9.png',
-    saved: true
+    saved: false
   },
   {
     id: 15,

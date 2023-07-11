@@ -16,6 +16,8 @@ function AuthenticationForm({type, handleSubmit}) {
           name="authenticationText"
           values={values}
           errors={errors}
+          minLength={2}
+          maxLength={30}
           handleChange={handleChange}
         />
       }[type]}
@@ -33,6 +35,8 @@ function AuthenticationForm({type, handleSubmit}) {
         name="authenticationPassword"
         values={values}
         errors={errors}
+        minLength={8}
+        maxLength={30}
         handleChange={handleChange}
       />
       <div className="authentication__form-basement">

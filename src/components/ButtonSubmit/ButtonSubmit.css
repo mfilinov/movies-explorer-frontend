@@ -14,7 +14,7 @@
   background-color: #3456F3;
 }
 
-.button_disabled {
+.button-submit_disabled {
   background-color: #F8F8F8;
   color: #C2C2C2;
   font-weight: 500;

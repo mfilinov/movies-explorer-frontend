@@ -28,9 +28,9 @@ function App() {
       const currenWidth = window.innerWidth
       if (currenWidth < deviceWidth.tablet) {
         setScreenType('mobile');
-      } else if (currenWidth < deviceWidth.desktop) {
+      } else if (currenWidth === deviceWidth.tablet) {
         setScreenType('tablet');
-      } else if (currenWidth >= deviceWidth.desktop) {
+      } else if (currenWidth > deviceWidth.tablet) {
         setScreenType('desktop');
       }
     }

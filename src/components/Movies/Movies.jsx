@@ -32,7 +32,8 @@ function Movies() {
     if (totalMovies > visibleMovieCards[screenType].initCount) {
       setIsMoreButtonPresent(true);
     }
-  }, [])
+    setVisibleCount(visibleMovieCards[screenType].initCount);
+  }, [screenType])
 
   return (
     <>

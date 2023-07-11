@@ -23,12 +23,12 @@ function MoviesCard({movieCard}) {
           <h2 className="movies-card__title">{movieCard.nameRu}</h2>
           <p className="movies-card__duration">{movieCard.duration} минут</p>
         </div>
-        <img src={movieCard.image} alt={movieCard.nameRU} className="card__image"/>
+        <img src={movieCard.image} alt={movieCard.nameRu} className="movies-card__image"/>
         <div className="movies-card__basement">{
           {
             delete: <button type="button" className="movies-card__button-delete button-hover"/>,
-            saved: <button type="button" className="movies-card__save-button movies-card__save-button_saved">✓</button>,
-            generic: <button type="button" className="movies-card__save-button">Сохранить</button>
+            saved: <button type="button" className="movies-card__save-button movies-card__save-button_saved button-hover">✓</button>,
+            generic: <button type="button" className="movies-card__save-button button-hover">Сохранить</button>
           }[buttonType]
         }
         </div>

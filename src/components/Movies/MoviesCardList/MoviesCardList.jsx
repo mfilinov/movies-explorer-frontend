@@ -4,7 +4,7 @@ import "./MoviesCardList.css"
 function MoviesCardList({movieCardList, isMoreButtonPresent, onMore}) {
 
   return (
-    <section className="movies" aria-label="галерея">
+    <section className="movies movies_size_l" aria-label="галерея">
       <ul className="movies__list list">
         {movieCardList.map(card => (<MoviesCard
             key={card['id']}

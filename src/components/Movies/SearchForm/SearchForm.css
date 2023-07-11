@@ -36,21 +36,21 @@
 .search__icon {
   width: 100%;
   max-width: 40px;
-  height: 40px;
+  min-height: 40px;
   background: url("../../../images/search.svg") no-repeat center/ 15px 15px;
 }
 
-.search-form__button-submit {
+.search__form-button-submit {
   padding: 0;
   width: 100%;
   max-width: 34px;
-  height: 34px;
+  min-height: 34px;
   border-radius: 50%;
   border: none;
   background: #3456F3 url("../../../images/search_icon_white.svg") no-repeat center/ 15px 15px;
 }
 
-.search-form__input {
+.search__form-input {
   border: none;
   padding: 0 0 0 7px;
   width: 100%;
@@ -81,7 +81,7 @@
 .search__checkbox-span {
   position: relative;
   width: 36px;
-  height: 20px;
+  min-height: 20px;
   background-color: #EBEBEB;
   border-radius: 20px;
 }
@@ -159,7 +159,7 @@
   .search__icon {
     display: none;
   }
-  .search-form__input {
+  .search__form-input {
     padding: 0;
     font-size: 14px;
     line-height: 20px;

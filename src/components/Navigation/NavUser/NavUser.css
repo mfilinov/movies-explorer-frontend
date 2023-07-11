@@ -41,7 +41,7 @@
   align-items: center;
   max-width: 100px;
   width: 100%;
-  height: 32px;
+  min-height: 32px;
   border-radius: 20px;
   background-color: #F9F9F9;
 }
@@ -55,7 +55,7 @@
   text-decoration: none;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
+@media screen and (width: 768px) {
   .header__nav {
     padding: 0;
   }
@@ -109,7 +109,7 @@
     font-weight: 500;
     line-height: 16px;
     text-decoration: none;
-    height: 32px;
+    min-height: 32px;
     border-radius: 20px;
     background-color: #F9F9F9;
     box-sizing: border-box;
@@ -168,7 +168,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 16px;
-    height: 32px;
+    min-height: 32px;
     border-radius: 20px;
     background-color: #F9F9F9;
     box-sizing: border-box;

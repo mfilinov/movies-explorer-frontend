@@ -38,6 +38,10 @@
   box-sizing: border-box;
 }
 
+.input-focus:focus {
+  outline: #3456F3 solid 1px;
+}
+
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .page__main_type_movies {
     padding: 0 30px;

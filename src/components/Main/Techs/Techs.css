@@ -40,7 +40,7 @@
 
 .techs__technology-element {
   width: 90px;
-  height: 60px;
+  min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +75,7 @@
 
   .techs__technology-element {
     width: 84px;
-    height: 57px;
+    min-height: 57px;
     font-size: 12px;
     line-height: 15px;
   }
@@ -110,7 +110,7 @@
 
   .techs__technology-element {
     width: 84px;
-    height: 57px;
+    min-height: 57px;
     font-size: 12px;
     line-height: 15px;
   }

@@ -13,9 +13,11 @@ function Login({setCurrentUser}) {
   }
 
   return (
-    <main className="authentication authentication_size_l">
-      <Authentication>Рады видеть!</Authentication>
-      <AuthenticationForm type="login" handleSubmit={handleSubmit}/>
+    <main className="page__auth">
+      <section className="authentication authentication_size_l">
+        <Authentication>Рады видеть!</Authentication>
+        <AuthenticationForm type="login" handleSubmit={handleSubmit}/>
+      </section>
     </main>
   )
 }

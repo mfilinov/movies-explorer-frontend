@@ -1,6 +1,6 @@
 import "./AuthenticationFormField.css"
 
-function AuthenticationFormField({title, type, name, values, errors, handleChange}) {
+function AuthenticationFormField({title, type, name, values, errors, handleChange, minLength = null, maxLength = null}) {
   return (
     <label className="authentication__form-field-label">
       <span className="authentication__form-field-title">{title}</span>
@@ -10,10 +10,10 @@ function AuthenticationFormField({title, type, name, values, errors, handleChang
         value={values[name] || ""}
         onChange={handleChange}
         required
-        minLength={type === "text" ? "2" : null}
-        maxLength={type === "text" ? "30" : null}
+        minLength={minLength}
+        maxLength={maxLength}
         placeholder=""
-        className="authentication__form-field-input"/>
+        className="authentication__form-field-input input-focus"/>
       <span className="authentication__form-field-error">{errors[name]}</span>
     </label>
   )
