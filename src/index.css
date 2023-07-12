@@ -1,0 +1,55 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+.root {
+  background: #ffffff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-hover:hover {
+  opacity: .7;
+  transition: opacity .7s;
+  cursor: pointer;
+}
+
+.button-hover:hover {
+  opacity: .8;
+  transition: opacity .7s;
+  cursor: pointer;
+}
+
+.page__main {
+  width: 100%;
+}
+
+.page__main_type_movies {
+  flex: 1;
+  padding: 0 70px 0;
+  box-sizing: border-box;
+}
+
+.input-focus:focus {
+  outline: #3456F3 solid 1px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .page__main_type_movies {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page__main_type_movies {
+    padding: 0 10px;
+  }
+}

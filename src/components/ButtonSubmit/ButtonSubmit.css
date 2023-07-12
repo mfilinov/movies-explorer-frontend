@@ -1,0 +1,30 @@
+.button-submit_size_l {
+  padding: 0;
+  border: 3px;
+  border-radius: 3px;
+  width: 100%;
+  min-height: 45px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.button-submit_theme_blue {
+  color: #FFFFFF;
+  background-color: #3456F3;
+}
+
+.button-submit_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 767px) {
+  .button-submit_size_l {
+    padding: 0;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

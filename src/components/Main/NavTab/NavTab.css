@@ -1,0 +1,35 @@
+.nav-tab {
+  display: flex;
+  background-color: #000000;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-tab_size_l {
+  width: 100%;
+  min-height: 66px;
+}
+
+.nav-tab__links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-tab__link {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-tab__links {
+    gap: 24px;
+    padding-bottom: 2px;
+  }
+
+  .nav-tab__link {
+    font-size: 11px;
+  }
+}
