@@ -4,8 +4,12 @@ import useFormAndValidation from "../../../hooks/useFormAndValidation";
 import ButtonSubmit from "../../ButtonSubmit/ButtonSubmit";
 import {Link} from "react-router-dom";
 
-function AuthenticationForm({type, handleSubmit}) {
+function AuthenticationForm({type, onSubmit}) {
   const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(values.name, values.email, values.password);
+  }
   return (
     <form name={type} className="authentication__form" onSubmit={handleSubmit} noValidate>
       {{
