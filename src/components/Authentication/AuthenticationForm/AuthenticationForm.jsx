@@ -8,8 +8,13 @@ function AuthenticationForm({type, onSubmit}) {
   const {values, handleChange, errors, isValid} = useFormAndValidation();
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(values.name, values.email, values.password);
+    if (type === 'register') {
+      onSubmit(values.name, values.email, values.password);
+    } else {
+      onSubmit(values.email, values.password);
+    }
   }
+
   return (
     <form name={type} className="authentication__form" onSubmit={handleSubmit} noValidate>
       {{
@@ -17,7 +22,7 @@ function AuthenticationForm({type, onSubmit}) {
         register: <AuthenticationFormField
           title="Имя"
           type="text"
-          name="authenticationText"
+          name="name"
           values={values}
           errors={errors}
           minLength={2}
@@ -28,7 +33,7 @@ function AuthenticationForm({type, onSubmit}) {
       <AuthenticationFormField
         title="E-mail"
         type="email"
-        name="authenticationEmail"
+        name="email"
         values={values}
         errors={errors}
         handleChange={handleChange}
@@ -36,7 +41,7 @@ function AuthenticationForm({type, onSubmit}) {
       <AuthenticationFormField
         title="Пароль"
         type="password"
-        name="authenticationPassword"
+        name="password"
         values={values}
         errors={errors}
         minLength={8}

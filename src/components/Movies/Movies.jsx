@@ -13,7 +13,7 @@ function Movies() {
   const [isMoreButtonPresent, setIsMoreButtonPresent] = useState(false);
   const [visibleCount, setVisibleCount] = useState(visibleMovieCards.desktop.initCount);
   const screenType = useContext(WindowModeContext);
-  const [moviesList, setMoviesList] = useState([])
+  const [moviesList, setMoviesList] = useState(null)
   const totalMovies = movieCardList.length;
 
   const handleShowMore = () => {
@@ -37,7 +37,6 @@ function Movies() {
     }
     moviesApi.getAllMovies()
       .then((cards) => {
-        console.log(cards[0])
         setMoviesList(cards)
       })
       .catch(err => console.log(err))
@@ -50,11 +49,12 @@ function Movies() {
       <Header/>
       <main className="page__main page__main_type_movies">
         <SearchForm/>
-        <p>{moviesList ? moviesList[0].id : 'none'}</p>
-        {/*<MoviesCardList*/}
-        {/*  movieCardList={moviesList.slice(0, visibleCount)}*/}
-        {/*  onMore={handleShowMore}*/}
-        {/*  isMoreButtonPresent={isMoreButtonPresent}/>*/}
+        { moviesList &&
+        <MoviesCardList
+          movieCardList={moviesList.slice(0, visibleCount)}
+          onMore={handleShowMore}
+          isMoreButtonPresent={isMoreButtonPresent}/>
+        }
       </main>
       <Footer/>
     </>

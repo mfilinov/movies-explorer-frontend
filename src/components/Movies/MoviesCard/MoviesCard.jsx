@@ -15,15 +15,16 @@ function MoviesCard({movieCard}) {
   }
 
   const buttonType = getButtonType();
+  const srcImage = `https://api.nomoreparties.co${movieCard.image.url}`
 
   return (
     <li className="movies-card">
       <article className="movies-card__container">
         <div className="movies-card__title-container">
-          <h2 className="movies-card__title">{movieCard.nameRu}</h2>
+          <h2 className="movies-card__title">{movieCard.nameRU}</h2>
           <p className="movies-card__duration">{movieCard.duration} минут</p>
         </div>
-        <img src={movieCard.image} alt={movieCard.nameRu} className="movies-card__image"/>
+        <img src={srcImage} alt={movieCard.nameRU} className="movies-card__image"/>
         <div className="movies-card__basement">{
           {
             delete: <button type="button" className="movies-card__button-delete button-hover"/>,

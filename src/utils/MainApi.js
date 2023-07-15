@@ -10,27 +10,53 @@ class MainApi {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`)
     }
-    return res.json()
-      .then((data) => {
-        if (data.data) {
-          return data.data
-        } else {
-          return data
-        }
-      })
+    return res.json().then((data) => data.data || data)
   }
 
-  register(name, email, password) {
-    return fetch(`${this._url}signup`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name, email, password})
+  getUser() {
+    return fetch(`${this._url}users/me`, {
+      method: 'GET',
+      headers: this._headers
     })
       .then(res => this._getResponseData(res));
   }
+
+  updateUserProfile(name, email) {
+    return fetch(`${this._url}users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  login(email, password) {
+    const data = {email, password};
+    return fetch(`${this._url}signin`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  register(name, email, password) {
+    const data = {name, email, password};
+    return fetch(`${this._url}signup`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  setToken(token) {
+    this._headers['Authorization'] = `Bearer ${token}`
+  }
+
 }
 
 export const mainApi = new MainApi();

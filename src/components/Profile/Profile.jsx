@@ -5,21 +5,32 @@ import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import {mainApi} from "../../utils/MainApi";
 
 function Profile({setCurrentUser}) {
   const [isVisibleSubmit, setIsVisibleSubmit] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
-  const {values, handleChange, errors, isValid, setValues} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setValues, setIsValid} = useFormAndValidation();
   const navigate = useNavigate();
   const user = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setValues({profileName: user.name, profileEmail: user.email});
+    setValues({name: user.name, email: user.email});
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsServerError(true);
+    mainApi.updateUserProfile(values.name, values.email)
+      .then(({name, email}) => {
+        setCurrentUser((prev) => ({...prev, name: name, email: email}))
+        setIsVisibleSubmit(false);
+        // Перед следующей отправкой необходимо сменить хотя бы одно значение в input
+        setIsValid(false);
+      })
+      .catch((e) => {
+        console.log(e)
+        setIsServerError(true);
+      })
   }
 
   function toggleSubmitState() {
@@ -27,8 +38,9 @@ function Profile({setCurrentUser}) {
   }
 
   function handleLogout(e) {
-    e.preventDefault();
-    setCurrentUser((prev) => ({...prev, isLoggedIn: false}));
+    localStorage.removeItem('jwt');
+    setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
+    mainApi.setToken('')
     navigate('/', {replace: true});
   }
 
@@ -46,31 +58,31 @@ function Profile({setCurrentUser}) {
             <label className="profile__label">
               <span className='profile__input-title'>Имя</span>
               <input type="text"
-                     name="profileName"
+                     name="name"
                      id="input-profile-name"
                      className="profile__input input-focus"
                      minLength="2"
                      maxLength="30"
                      placeholder=""
                      required
-                     value={values.profileName || ""}
+                     value={values.name || ""}
                      onChange={handleChange}
               />
             </label>
-            <span className="profile__span-error">{errors.profileName}</span>
+            <span className="profile__span-error">{errors.name}</span>
             <label className="profile__label">
               <span className='profile__input-title'>E-mail</span>
               <input type="email"
-                     name="profileEmail"
+                     name="email"
                      id="input-profile-email"
                      className="profile__input input-focus"
                      placeholder=""
                      required
-                     value={values.profileEmail || ""}
+                     value={values.email || ""}
                      onChange={handleChange}
               />
             </label>
-            <span className="profile__span-error">{errors.profileEmail}</span>
+            <span className="profile__span-error">{errors.email}</span>
             <p className='profile__response-error'>
               {isServerError && 'При обновлении профиля произошла ошибка.'}
             </p>
