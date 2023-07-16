@@ -3,15 +3,30 @@ import AuthenticationFormField from "./AuthenticationFormField/AuthenticationFor
 import useFormAndValidation from "../../../hooks/useFormAndValidation";
 import ButtonSubmit from "../../ButtonSubmit/ButtonSubmit";
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import {getErrorMessage} from "../../../utils/utils";
 
 function AuthenticationForm({type, onSubmit}) {
-  const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid} = useFormAndValidation();
+  const [responseMessage, setResponseMessage] = useState('');
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === 'register') {
-      onSubmit(values.name, values.email, values.password);
+      onSubmit(values.name, values.email, values.password)
+        .catch((e) => {
+          const msg = getErrorMessage(e.status, 'При регистрации пользователя произошла ошибка.');
+          setResponseMessage(msg);
+          setIsValid(false);
+        })
     } else {
-      onSubmit(values.email, values.password);
+      onSubmit(values.email, values.password)
+        .catch((e) => {
+          const msg = getErrorMessage(e.status, 'При авторизации произошла ошибка.');
+          setResponseMessage(msg);
+          setIsValid(false);
+        });
     }
   }
 
@@ -49,6 +64,10 @@ function AuthenticationForm({type, onSubmit}) {
         handleChange={handleChange}
       />
       <div className="authentication__form-basement">
+        <p className="authentication__form-response authentication__form-response_type_error">
+          {/* условие isValid чтобы убрать текст ошибки после ввода информации*/}
+          {!isValid && responseMessage}
+        </p>
         {{
           login: <ButtonSubmit text="Войти" disabled={!isValid}/>,
           register: <ButtonSubmit text="Зарегистрироваться" disabled={!isValid}/>

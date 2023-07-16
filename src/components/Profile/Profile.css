@@ -93,14 +93,21 @@
   font-weight: 500;
 }
 
-.profile__response-error {
+.profile__response {
   margin: 0;
   padding: 171px 0 0;
   min-height: 14px;
-  color: #FF004C;
   text-align: center;
   font-size: 11px;
   line-height: 14px;
+}
+
+.profile__response_type_success {
+  color: #000000;
+}
+
+.profile__response_type_error {
+  color: #FF004C;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {

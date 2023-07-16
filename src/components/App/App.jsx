@@ -24,22 +24,22 @@ function App() {
   const navigate = useNavigate();
 
   function handleLogin(email, password) {
-    mainApi.login(email, password)
+    return mainApi.login(email, password)
       .then(({token}) => {
         localStorage.setItem('jwt', token)
-        setCurrentUser((prev) => ({...prev, isLoggedIn: true}))
-        navigate('/movies', {replace: true});
+        mainApi.setToken(token)
+        return mainApi.getUser()
       })
-      .catch((e) => console.log(e))
+      .then(({name, email}) => {
+        setCurrentUser((prev) => ({...prev, name: name, email: email, isLoggedIn: true}))
+        navigate('/movies', {replace: true});
+        return true
+      })
   }
 
   function handleRegister(name, email, password) {
-    mainApi.register(name, email, password)
-      .then(({name, email}) => {
-        setCurrentUser((prev) => ({...prev, name: name, email: email, isLoggedIn: true}))
-        handleLogin(email, password);
-      })
-      .catch((e) => console.log(e))
+    return mainApi.register(name, email, password)
+      .then(() => handleLogin(email, password))
   }
 
   useEffect(() => {

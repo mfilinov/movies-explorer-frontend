@@ -6,17 +6,18 @@ import {useNavigate} from "react-router-dom";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import {mainApi} from "../../utils/MainApi";
+import {getErrorMessage} from "../../utils/utils";
 
 function Profile({setCurrentUser}) {
   const [isVisibleSubmit, setIsVisibleSubmit] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
+  const [response, setResponse] = useState({type: 'default', msg: ''});
   const {values, handleChange, errors, isValid, setValues, setIsValid} = useFormAndValidation();
   const navigate = useNavigate();
   const user = useContext(CurrentUserContext);
 
   useEffect(() => {
     setValues({name: user.name, email: user.email});
-  }, []);
+  }, [setValues, user.email, user.name]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,17 +25,20 @@ function Profile({setCurrentUser}) {
       .then(({name, email}) => {
         setCurrentUser((prev) => ({...prev, name: name, email: email}))
         setIsVisibleSubmit(false);
+        setResponse({type: 'success', msg: 'Данные пользователя обновлены успешно.'});
         // Перед следующей отправкой необходимо сменить хотя бы одно значение в input
         setIsValid(false);
       })
       .catch((e) => {
-        console.log(e)
-        setIsServerError(true);
+        const msg = getErrorMessage(e.status, 'При обновлении профиля произошла ошибка.');
+        setResponse({type: 'error', msg: msg});
+        setIsValid(false);
       })
   }
 
   function toggleSubmitState() {
     setIsVisibleSubmit(prev => !prev);
+    setResponse({type: 'default', msg: ''});
   }
 
   function handleLogout(e) {
@@ -83,9 +87,19 @@ function Profile({setCurrentUser}) {
               />
             </label>
             <span className="profile__span-error">{errors.email}</span>
-            <p className='profile__response-error'>
-              {isServerError && 'При обновлении профиля произошла ошибка.'}
-            </p>
+            {/* условие isValid чтобы убрать текст ошибки после ввода информации*/}
+            {{
+              success:
+                <p className='profile__response profile__response_type_success'>
+                  {!isValid && response.msg}
+                </p>,
+              error:
+                <p className='profile__response profile__response_type_error'>
+                  {!isValid && response.msg}
+                </p>,
+              default:
+                <p className='profile__response'/>
+            }[response.type]}
             <div className="profile__button-container">
               {isVisibleSubmit
                 ?
