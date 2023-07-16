@@ -14,6 +14,10 @@ function MoviesCard({movieCard}) {
     return "generic"
   }
 
+  function openLinkInNewTab() {
+    window.open(movieCard.trailerLink, "_blank", "noreferrer");
+  }
+
   const buttonType = getButtonType();
   const srcImage = `https://api.nomoreparties.co${movieCard.image.url}`
 
@@ -24,7 +28,7 @@ function MoviesCard({movieCard}) {
           <h2 className="movies-card__title">{movieCard.nameRU}</h2>
           <p className="movies-card__duration">{movieCard.duration} минут</p>
         </div>
-        <img src={srcImage} alt={movieCard.nameRU} className="movies-card__image"/>
+        <img src={srcImage} alt={movieCard.nameRU} className="movies-card__image" onClick={openLinkInNewTab}/>
         <div className="movies-card__basement">{
           {
             delete: <button type="button" className="movies-card__button-delete button-hover"/>,

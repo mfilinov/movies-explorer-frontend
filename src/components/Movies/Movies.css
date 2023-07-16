@@ -4,3 +4,19 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.movies__response {
+  margin: 0;
+  min-height: 14px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.movies__response_type_success {
+  color: #000000;
+}
+
+.movies__response_type_error {
+  color: #FF004C;
+}
