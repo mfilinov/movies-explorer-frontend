@@ -42,7 +42,7 @@ function Profile({setCurrentUser}) {
   }
 
   function handleLogout(e) {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
     mainApi.setToken('')
     navigate('/', {replace: true});

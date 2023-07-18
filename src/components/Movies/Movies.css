@@ -15,6 +15,8 @@
 
 .movies__response_type_success {
   color: #000000;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .movies__response_type_error {

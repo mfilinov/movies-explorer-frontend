@@ -1,25 +1,26 @@
 import "./SearchForm.css"
 import {useState} from "react";
 
-function SearchForm({onSearch}) {
-  const [searchData, setSearchData] = useState({text: '', isShort: false});
+function SearchForm({onSearch, search, handleChange, handleCheckboxChange}) {
+  const [isEmptyInput, setIsEmptyInput] = useState(false);
+
+  async function handleCheckbox(e) {
+    await handleCheckboxChange(e);
+    e.target.form.requestSubmit();
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSearch(searchData);
-  }
-
-  function handleChange(e) {
-    setSearchData((prev) => ({...prev, text: e.target.value}))
-  }
-
-  function handleCheckboxChange(e) {
-    setSearchData((prev) => ({...prev, isShort: e.target.checked}))
+    if (!e.target.searchInput.value.trim()) {
+      return setIsEmptyInput(true);
+    }
+    setIsEmptyInput(false);
+    onSearch(search);
   }
 
   return (
     <div className="search page__search">
-      <form className="search__form" onSubmit={handleSubmit}>
+      <form className="search__form" onSubmit={handleSubmit} noValidate>
         <div className="search__form-container">
           <div className="search__form-input-container">
             <div className="search__icon"/>
@@ -30,6 +31,7 @@ function SearchForm({onSearch}) {
               name="searchInput"
               required
               onChange={handleChange}
+              value={search.text}
             />
             <button className="search__form-button-submit button-hover"/>
           </div>
@@ -40,13 +42,19 @@ function SearchForm({onSearch}) {
                 type="checkbox"
                 name="searchCheckbox"
                 id="searchCheckbox"
-                onChange={handleCheckboxChange}
+                onChange={handleCheckbox}
+                checked={search.isShort}
               />
               <span className="search__checkbox-span input-focus"/>
               <span className="search__checkbox-caption">Короткометражки</span>
             </label>
           </div>
         </div>
+        {isEmptyInput &&
+          <p className="search__form-warning">
+            Нужно ввести ключевое слово
+          </p>
+        }
       </form>
     </div>
   )

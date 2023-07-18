@@ -13,6 +13,31 @@ class MainApi {
     return res.json().then((data) => data.data || data)
   }
 
+  getSavedMovies(){
+    return fetch(`${this._url}movies`, {
+      method: 'GET',
+      headers: this._headers
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  createSavedMovie(movie) {
+    return fetch(`${this._url}movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(movie)
+    })
+      .then(res => this._getResponseData(res));
+  }
+
+  deleteSavedMovie(movieId) {
+    return fetch(`${this._url}movies/${movieId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+      .then(res => this._getResponseData(res));
+  }
+
   getUser() {
     return fetch(`${this._url}users/me`, {
       method: 'GET',
