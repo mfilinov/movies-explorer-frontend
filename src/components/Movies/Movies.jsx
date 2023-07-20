@@ -7,7 +7,7 @@ import {visibleMovieCards} from "../../utils/config";
 import {WindowModeContext} from "../../contexts/WindowModeContext";
 import {moviesApi} from "../../utils/MoviesApi";
 import {mainApi} from "../../utils/MainApi";
-import {MOVIES_API_URL} from "../../utils/constants";
+import {MOVIES_API_URL, SHORT_MOVIE_DURATION} from "../../utils/constants";
 import useSearchForm from "../../hooks/useSearchForm";
 
 /*Use cases:
@@ -16,9 +16,8 @@ import useSearchForm from "../../hooks/useSearchForm";
 3. Сохранить/Удалить должен менять состояние карточки и сохранять в фильтрах и сорсах
 */
 
-function Movies() {
+function Movies({moviesList, setMoviesList}) {
   const {search, setSearch, handleChange, handleCheckboxChange} = useSearchForm();
-  const [moviesList, setMoviesList] = useState([])
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [hasNetError, setHasNetError] = useState(false);
   const [isMoreButtonPresent, setIsMoreButtonPresent] = useState(false);
@@ -106,8 +105,8 @@ function Movies() {
     setSearch(searchData);
     localStorage.setItem('searchData', JSON.stringify(searchData))
     const filteredMoviesList = movies.filter((movie) => {
-      const match = movie.nameRU.includes(searchData.text)
-      return searchData.isShort ? (movie.duration <= 40 && match) : match
+      const match = movie.nameRU.toLowerCase().includes(searchData.text.toLowerCase())
+      return searchData.isShort ? (movie.duration <= SHORT_MOVIE_DURATION && match) : match
     })
     if (filteredMoviesList.length === 0) {
       setIsNoData(true);

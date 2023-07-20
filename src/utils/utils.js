@@ -17,3 +17,9 @@ export const getErrorMessage = (status, defaultText) => {
       return defaultText;
   }
 };
+
+export function calculateDuration(duration) {
+  const hours = Math.floor(duration / 60);
+  const minutes = Math.floor(duration % 60);
+  return `${hours > 0 ? hours + '\xa0час ' : ''}${minutes}\xa0минут`;
+}

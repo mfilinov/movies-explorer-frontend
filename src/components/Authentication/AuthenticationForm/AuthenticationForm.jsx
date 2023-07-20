@@ -5,12 +5,20 @@ import ButtonSubmit from "../../ButtonSubmit/ButtonSubmit";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import {getErrorMessage} from "../../../utils/utils";
+import {EMAIL_REGEX} from "../../../utils/constants";
 
 function AuthenticationForm({type, onSubmit}) {
-  const {values, handleChange, errors, isValid, setIsValid} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid, setErrors} = useFormAndValidation();
   const [responseMessage, setResponseMessage] = useState('');
 
-
+  function handleEmailChange(e) {
+    handleChange(e);
+    const {name, value} = e.target
+    if (name === 'email' && (!EMAIL_REGEX.test(value))) {
+      setIsValid(false);
+      setErrors({...errors, email: 'Введите корректный email формата example@domain.com'})
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === 'register') {
@@ -51,7 +59,7 @@ function AuthenticationForm({type, onSubmit}) {
         name="email"
         values={values}
         errors={errors}
-        handleChange={handleChange}
+        handleChange={handleEmailChange}
       />
       <AuthenticationFormField
         title="Пароль"

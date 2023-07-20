@@ -18,8 +18,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     name: "",
     email: "",
-    isLoggedIn: false
+    isLoggedIn: !!localStorage.getItem('jwt')
   });
+  const [moviesList, setMoviesList] = useState([])
   const screenType = useWindowSize();
   const navigate = useNavigate();
 
@@ -63,7 +64,7 @@ function App() {
             <Route path="/signin" element={<Login onLogin={handleLogin}/>}/>
             <Route path="/signup" element={<Register onRegister={handleRegister}/>}/>
             <Route element={<ProtectedRoute/>}>
-              <Route path="/movies" element={<Movies/>}/>
+              <Route path="/movies" element={<Movies moviesList={moviesList} setMoviesList={setMoviesList}/>}/>
               <Route path="/saved-movies" element={<SavedMovies/>}/>
               <Route path="/profile" element={<Profile setCurrentUser={setCurrentUser}/>}/>
             </Route>

@@ -8,6 +8,7 @@ import {WindowModeContext} from "../../contexts/WindowModeContext";
 import {visibleMovieCards} from "../../utils/config";
 import useSearchForm from "../../hooks/useSearchForm";
 import {mainApi} from "../../utils/MainApi";
+import {SHORT_MOVIE_DURATION} from "../../utils/constants";
 
 function SavedMovies() {
   const {search, setSearch, handleChange, handleCheckboxChange} = useSearchForm();
@@ -19,13 +20,17 @@ function SavedMovies() {
   const [isNoData, setIsNoData] = useState(false);
   const screenType = useContext(WindowModeContext);
 
+  function filterMovies(movies, search) {
+    return movies.filter((movie) => {
+      const match = movie.nameRU.toLowerCase().includes(search.text.toLowerCase())
+      return search.isShort ? (movie.duration <= SHORT_MOVIE_DURATION && match) : match
+    })
+  }
+
   function handleSearchSubmit(searchData) {
     setVisibleCount(visibleMovieCards[screenType].initCount);
     setSearch(searchData);
-    const filteredMoviesList = moviesList.filter((movie) => {
-      const match = movie.nameRU.includes(searchData.text)
-      return searchData.isShort ? (movie.duration <= 40 && match) : match
-    })
+    const filteredMoviesList = filterMovies(moviesList, searchData);
     if (filteredMoviesList.length === 0) {
       setIsNoData(true);
     } else {
@@ -37,7 +42,17 @@ function SavedMovies() {
   function updateStorages(movie) {
     const updatedMoviesList = moviesList.filter((obj) => (obj['_id'] !== movie['_id']))
     setMoviesList(updatedMoviesList);
-    setFilteredMovies(updatedMoviesList);
+    if (search.text !== '') {
+      const newFilteredMoviesList = filterMovies(updatedMoviesList, search);
+      if (newFilteredMoviesList.length === 0) {
+        setFilteredMovies([])
+        setIsNoData(true)
+      } else {
+        setFilteredMovies(newFilteredMoviesList)
+      }
+    } else {
+      setFilteredMovies(updatedMoviesList);
+    }
     // Смена состояния saved у удаляемого фильма если он находится в localstorage
     const localFilteredMoviesList = localStorage.getItem('filteredMoviesList');
     if (localFilteredMoviesList) {
@@ -55,15 +70,11 @@ function SavedMovies() {
 
   function deleteMovie(movie) {
     setHasNetError(false)
-    return mainApi.deleteSavedMovie(movie['_id'])
-      .then(() => {
-        updateStorages(movie);
-        return true
-      })
+    mainApi.deleteSavedMovie(movie['_id'])
+      .then(() => updateStorages(movie))
       .catch(err => {
         setHasNetError(true)
         console.log(err)
-        return false
       })
   }
 

@@ -41,7 +41,19 @@ function Profile({setCurrentUser}) {
     setResponse({type: 'default', msg: ''});
   }
 
-  function handleLogout(e) {
+  function handleChangeInputs(e) {
+    // User cant send current data to server
+    handleChange(e);
+    const {name, value} = e.target
+    if (name === "name" && value === user.name) {
+      setIsValid(false);
+    }
+    if (name === "email" && value === user.email) {
+      setIsValid(false);
+    }
+  }
+
+  function handleLogout() {
     localStorage.clear();
     setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
     mainApi.setToken('')
@@ -70,7 +82,7 @@ function Profile({setCurrentUser}) {
                      placeholder=""
                      required
                      value={values.name || ""}
-                     onChange={handleChange}
+                     onChange={handleChangeInputs}
               />
             </label>
             <span className="profile__span-error">{errors.name}</span>
@@ -83,7 +95,7 @@ function Profile({setCurrentUser}) {
                      placeholder=""
                      required
                      value={values.email || ""}
-                     onChange={handleChange}
+                     onChange={handleChangeInputs}
               />
             </label>
             <span className="profile__span-error">{errors.email}</span>

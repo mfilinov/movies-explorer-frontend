@@ -1,14 +1,23 @@
+import {
+  DESKTOP_INIT_CARDS,
+  DESKTOP_MORE_CARDS,
+  MOBILE_INIT_CARDS,
+  MOBILE_MORE_CARDS,
+  TABLET_INIT_CARDS,
+  TABLET_MORE_CARDS
+} from "./constants";
+
 export const visibleMovieCards = {
   desktop: {
-    initCount: 12,
-    moreCount: 3,
+    initCount: DESKTOP_INIT_CARDS,
+    moreCount: DESKTOP_MORE_CARDS,
   },
   tablet: {
-    initCount: 8,
-    moreCount: 2,
+    initCount: TABLET_INIT_CARDS,
+    moreCount: TABLET_MORE_CARDS,
   },
   mobile: {
-    initCount: 5,
-    moreCount: 2,
+    initCount: MOBILE_INIT_CARDS,
+    moreCount: MOBILE_MORE_CARDS,
   },
 };
