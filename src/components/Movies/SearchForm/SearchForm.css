@@ -11,8 +11,18 @@
   width: 100%;
   max-width: 1140px;
   display: flex;
+  flex-direction: column;
   border: none;
   border-bottom: #E8E8E8 solid 1px;
+}
+
+.search__form-warning {
+  margin: 0;
+  padding-top: 6px ;
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FF004C;
 }
 
 .search__form-container {

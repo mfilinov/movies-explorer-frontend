@@ -1,7 +1,7 @@
 import './App.css';
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
@@ -9,37 +9,50 @@ import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
 import {useEffect, useState} from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
-import {WindowModeContext, deviceWidth} from "../../contexts/WindowModeContext";
-import {debounce} from "../../utils/utils";
+import {WindowModeContext} from "../../contexts/WindowModeContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {mainApi} from "../../utils/MainApi";
+import useWindowSize from "../../hooks/useWindowSize";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({
-    id: "",
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-    isLoggedIn: false
+    name: "",
+    email: "",
+    isLoggedIn: !!localStorage.getItem('jwt')
   });
+  const [moviesList, setMoviesList] = useState([])
+  const screenType = useWindowSize();
+  const navigate = useNavigate();
 
-  const [screenType, setScreenType] = useState("desktop");
+  function handleLogin(email, password) {
+    return mainApi.login(email, password)
+      .then(({token}) => {
+        localStorage.setItem('jwt', token)
+        mainApi.setToken(token)
+        return mainApi.getUser()
+      })
+      .then(({name, email}) => {
+        setCurrentUser((prev) => ({...prev, name: name, email: email, isLoggedIn: true}))
+        navigate('/movies', {replace: true});
+        return true
+      })
+  }
+
+  function handleRegister(name, email, password) {
+    return mainApi.register(name, email, password)
+      .then(() => handleLogin(email, password))
+  }
 
   useEffect(() => {
-    const debounceTime = 500;
-    const handleScreenResize = () => {
-      const currenWidth = window.innerWidth
-      if (currenWidth < deviceWidth.tablet) {
-        setScreenType('mobile');
-      } else if (currenWidth === deviceWidth.tablet) {
-        setScreenType('tablet');
-      } else if (currenWidth > deviceWidth.tablet) {
-        setScreenType('desktop');
-      }
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi.setToken(jwt);
+      mainApi.getUser()
+        .then(({name, email}) => {
+          setCurrentUser((prev) => ({...prev, name: name, email: email, isLoggedIn: true}))
+        })
+        .catch((e) => console.log(e))
     }
-
-    handleScreenResize();
-    window.addEventListener('resize', debounce(handleScreenResize, debounceTime));
-    return () => {
-      window.removeEventListener('resize', debounce(handleScreenResize, debounceTime));
-    };
   }, [])
 
   return (
@@ -48,11 +61,13 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route path="/" element={<Main/>}/>
-            <Route path="/movies" element={<Movies/>}/>
-            <Route path="/saved-movies" element={<SavedMovies/>}/>
-            <Route path="/profile" element={<Profile setCurrentUser={setCurrentUser}/>}/>
-            <Route path="/signin" element={<Login setCurrentUser={setCurrentUser}/>}/>
-            <Route path="/signup" element={<Register/>}/>
+            <Route path="/signin" element={<Login onLogin={handleLogin}/>}/>
+            <Route path="/signup" element={<Register onRegister={handleRegister}/>}/>
+            <Route element={<ProtectedRoute/>}>
+              <Route path="/movies" element={<Movies moviesList={moviesList} setMoviesList={setMoviesList}/>}/>
+              <Route path="/saved-movies" element={<SavedMovies/>}/>
+              <Route path="/profile" element={<Profile setCurrentUser={setCurrentUser}/>}/>
+            </Route>
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </CurrentUserContext.Provider>

@@ -5,30 +5,58 @@ import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import {mainApi} from "../../utils/MainApi";
+import {getErrorMessage} from "../../utils/utils";
 
 function Profile({setCurrentUser}) {
   const [isVisibleSubmit, setIsVisibleSubmit] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
-  const {values, handleChange, errors, isValid, setValues} = useFormAndValidation();
+  const [response, setResponse] = useState({type: 'default', msg: ''});
+  const {values, handleChange, errors, isValid, setValues, setIsValid} = useFormAndValidation();
   const navigate = useNavigate();
   const user = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setValues({profileName: user.name, profileEmail: user.email});
-  }, []);
+    setValues({name: user.name, email: user.email});
+  }, [setValues, user.email, user.name]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsServerError(true);
+    mainApi.updateUserProfile(values.name, values.email)
+      .then(({name, email}) => {
+        setCurrentUser((prev) => ({...prev, name: name, email: email}))
+        setIsVisibleSubmit(false);
+        setResponse({type: 'success', msg: 'Данные пользователя обновлены успешно.'});
+        // Перед следующей отправкой необходимо сменить хотя бы одно значение в input
+        setIsValid(false);
+      })
+      .catch((e) => {
+        const msg = getErrorMessage(e.status, 'При обновлении профиля произошла ошибка.');
+        setResponse({type: 'error', msg: msg});
+        setIsValid(false);
+      })
   }
 
   function toggleSubmitState() {
     setIsVisibleSubmit(prev => !prev);
+    setResponse({type: 'default', msg: ''});
   }
 
-  function handleLogout(e) {
-    e.preventDefault();
-    setCurrentUser((prev) => ({...prev, isLoggedIn: false}));
+  function handleChangeInputs(e) {
+    // User cant send current data to server
+    handleChange(e);
+    const {name, value} = e.target
+    if (name === "name" && value === user.name) {
+      setIsValid(false);
+    }
+    if (name === "email" && value === user.email) {
+      setIsValid(false);
+    }
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+    setCurrentUser(() => ({name: "", email: "", isLoggedIn: false}));
+    mainApi.setToken('')
     navigate('/', {replace: true});
   }
 
@@ -46,34 +74,44 @@ function Profile({setCurrentUser}) {
             <label className="profile__label">
               <span className='profile__input-title'>Имя</span>
               <input type="text"
-                     name="profileName"
+                     name="name"
                      id="input-profile-name"
                      className="profile__input input-focus"
                      minLength="2"
                      maxLength="30"
                      placeholder=""
                      required
-                     value={values.profileName || ""}
-                     onChange={handleChange}
+                     value={values.name || ""}
+                     onChange={handleChangeInputs}
               />
             </label>
-            <span className="profile__span-error">{errors.profileName}</span>
+            <span className="profile__span-error">{errors.name}</span>
             <label className="profile__label">
               <span className='profile__input-title'>E-mail</span>
               <input type="email"
-                     name="profileEmail"
+                     name="email"
                      id="input-profile-email"
                      className="profile__input input-focus"
                      placeholder=""
                      required
-                     value={values.profileEmail || ""}
-                     onChange={handleChange}
+                     value={values.email || ""}
+                     onChange={handleChangeInputs}
               />
             </label>
-            <span className="profile__span-error">{errors.profileEmail}</span>
-            <p className='profile__response-error'>
-              {isServerError && 'При обновлении профиля произошла ошибка.'}
-            </p>
+            <span className="profile__span-error">{errors.email}</span>
+            {/* условие isValid чтобы убрать текст ошибки после ввода информации*/}
+            {{
+              success:
+                <p className='profile__response profile__response_type_success'>
+                  {!isValid && response.msg}
+                </p>,
+              error:
+                <p className='profile__response profile__response_type_error'>
+                  {!isValid && response.msg}
+                </p>,
+              default:
+                <p className='profile__response'/>
+            }[response.type]}
             <div className="profile__button-container">
               {isVisibleSubmit
                 ?
